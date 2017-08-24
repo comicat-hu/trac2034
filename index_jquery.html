@@ -4,7 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trac #2034(JS ver.)</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>Trac #2034(JQuery ver.)</title>
     <style>
         body {
             font-family: "Consolas", "Courier New", "Calibri", "標楷體";
@@ -61,8 +62,8 @@
         <h1 class="title">#2034 JavaScript練習</h1>
     </a>
 
-    <a href="./index_jquery.html">
-        <p class="ver">Go to JQuery ver.</p>
+    <a href="./index.html">
+        <p class="ver">Go to JS ver.</p>
     </a>
 
     <p class="date"></p>
@@ -102,47 +103,45 @@
     <script>
         //update date
         function updateTime() {
-            var element_date = document.querySelector(".date");
+            var $element_date = $(".date");
             var time = new Date();
             var percent = 100 / 60 * time.getSeconds();
-            element_date.innerHTML = time.toLocaleString();
-            element_date.setAttribute("style", "background: linear-gradient(90deg, #fd5 " + percent + "%, #f88 " + (percent + 10) + "%);");
+            $element_date.html(time.toLocaleString());
+            $element_date.css("background", "linear-gradient(90deg, #fd5 " + percent + "%, #f88 " + (percent + 10) + "%)");
         }
         updateTime();
         setInterval(() => updateTime(), 1000);
         //confirm click
-        document.querySelector("#btn_confirm").addEventListener("click", function () {
+        $("#btn_confirm").click(() => {
             if (confirm("go to #2034?")) {
-                document.querySelector(".title").click();
+                $(".title")[0].click();
             }
         });
 
         //prompt click
-        document.querySelector("#btn_prompt").addEventListener("click", function () {
-            var words = prompt("Enter some words.", "");
-            var element_result = document.querySelector(".result");
+        $("#btn_prompt").click(() => {
+            let words = prompt("Enter some words.", "");
+            let $element_result = $(".result");
             if (words === null) {
-                return element_result.innerHTML = "";
+                return $element_result.html("");
             }
-            element_result.innerHTML = " - result: " + htmlEncoding(words);
+            $element_result.html(" - result: " + htmlEncoding(words));
         });
 
         //alert click
-        document.querySelector("#btn_alert").addEventListener("click", function () {
+        $("#btn_alert").click(() => {
             alert("Hello!");
         });
 
         //Add item to list
-        document.querySelector(".submit").addEventListener("click", function () {
-            var element_input = document.querySelector(".input");
-            var element_list = document.querySelector(".list");
-            var items = element_input.value.split(",");
-            element_input.value = "";
+        $(".submit").click(() => {
+            let $element_input = $(".input");
+            let $element_list = $(".list");
+            let items = $element_input.val().split(",");
+            $element_input.val("");
 
             for (var item of items) {
-                var li = document.createElement("li");
-                li.innerHTML = htmlEncoding(item);
-                element_list.appendChild(li);
+                $element_list.append("<li>" + htmlEncoding(item) + "</li>");
             }
         });
     </script>

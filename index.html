@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-simulate/1.0.1/jquery.simulate.min.js"></script> -->
+    <title>Trac #2034</title>
+    <style>
+        body {
+            font-family: "Consolas", "Courier New", "Calibri", "標楷體";
+        }
+
+        .title {
+            color: #0bf;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        a>h1:hover {
+            text-decoration: underline;
+        }
+
+        a>h1:active {
+            color: #0ff;
+        }
+
+        .btn {
+            display: inline-block;
+            color: #04b;
+        }
+
+
+        .btn:hover {
+            cursor: pointer;
+            color: #0ff;
+        }
+
+        .result {
+            display: inline;
+            color: #000;
+        }
+
+        .date {
+            display: inline-block;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="https://issue.104corp.work/trac/ticket/2034" target="_blank">
+        <h1 class="title">#2034 JavaScript練習</h1>
+    </a>
+
+    <p class="date"></p>
+    <br>
+
+    <p id="btn_confirm" class="btn">Confirm test</p>
+    <br>
+
+    <p id="btn_prompt" class="btn">Prompt test
+        <span class="result"></span>
+    </p>
+    <br>
+
+    <p id="btn_alert" class="btn">Alert test</p>
+    <br>
+
+    <label>Add item: (可用 ',' 分隔)</label>
+    <br>
+    <input type="text" class="input">
+    <button class="submit">submit</button>
+    <br>
+
+    <ul class="list">
+    </ul>
+
+
+    <script>
+        function htmlEncoding(str) {
+            return str.replace(/&/g, "&amp;")
+                .replace(/>/g, "&gt;")
+                .replace(/</g, "&lt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+
+    <script>
+        //update date
+        function updateTime() {
+            var element_date = document.querySelector(".date");
+            var time = new Date();
+            var percent = 100 / 60 * time.getSeconds();
+            element_date.innerHTML = time.toLocaleString();
+            element_date.setAttribute("style", "background: linear-gradient(90deg, #fd5 " + percent + "%, #f88 " + (percent + 10) + "%);");
+        }
+        updateTime();
+        setInterval(() => updateTime(), 1000);
+        //confirm click
+        document.querySelector("#btn_confirm").addEventListener("click", function () {
+            if (confirm("go to #2034?")) {
+                document.querySelector(".title").click();
+            }
+        });
+
+        //prompt click
+        document.querySelector("#btn_prompt").addEventListener("click", function () {
+            var words = prompt("Enter some words.", "");
+            var element_result = document.querySelector(".result");
+            if (words === null) {
+                return element_result.innerHTML = "";
+            }
+            element_result.innerHTML = " - result: " + htmlEncoding(words);
+        });
+
+        //alert click
+        document.querySelector("#btn_alert").addEventListener("click", function () {
+            alert("Hello!");
+        });
+
+        //Add item to list
+        document.querySelector(".submit").addEventListener("click", function () {
+            var element_input = document.querySelector(".input");
+            var element_list = document.querySelector(".list");
+            var items = element_input.value.split(",");
+            element_input.value = "";
+
+            for (var item of items) {
+                var li = document.createElement("li");
+                li.innerHTML = htmlEncoding(item);
+                element_list.appendChild(li);
+            }
+        });
+    </script>
+
+</body>
+
+</html>

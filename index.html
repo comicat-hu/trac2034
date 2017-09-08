@@ -53,6 +53,32 @@
             display: inline-block;
             border-radius: 5px;
         }
+
+        .inline {
+            display: inline-block;
+            vertical-align: top;
+        }
+
+        .circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 25px;
+            background-color: #63D9DD;
+            margin: 5px;
+            filter: brightness(50%);
+        }
+
+        .red {
+            background-color: #F74E1E;
+        }
+
+        .yellow {
+            background-color: #FFB900;
+        }
+
+        .green {
+            background-color: #7FBA00;
+        }
     </style>
 </head>
 
@@ -62,36 +88,94 @@
         <h1 class="title">#2034 JavaScript練習</h1>
     </a>
 
-    <a href="https://github.com/comicat-hu/trac2034" target="_blank">
-        <i class="fa fa-github ver" aria-hidden="true"> Github</i>
-    </a>
+    <div class="inline">
+        <a href="https://github.com/comicat-hu/trac2034" target="_blank">
+            <i class="fa fa-github ver" aria-hidden="true"> Github</i>
+        </a>
 
-    <a href="./index_jquery.html">
-        <p class="ver">Go to JQuery ver.</p>
-    </a>
+        <a href="./index_jquery.html">
+            <p class="ver">Go to JQuery ver.</p>
+        </a>
 
-    <p class="date"></p>
-    <br>
+        <p class="date"></p>
+        <br>
 
-    <p id="btn_confirm" class="btn">Confirm test</p>
-    <br>
+        <p id="btn_confirm" class="btn">Confirm test</p>
+        <br>
 
-    <p id="btn_prompt" class="btn">Prompt test
-        <span class="result"></span>
-    </p>
-    <br>
+        <p id="btn_prompt" class="btn">Prompt test
+            <span class="result"></span>
+        </p>
+        <br>
 
-    <p id="btn_alert" class="btn">Alert test</p>
-    <br>
+        <p id="btn_alert" class="btn">Alert test</p>
+        <br>
 
-    <label>Add item: (可用 ',' 分隔)</label>
-    <br>
-    <input type="text" class="input">
-    <button class="submit">submit</button>
-    <br>
+        <label>Add item: (可用 ',' 分隔)</label>
+        <br>
+        <input type="text" class="input">
+        <button class="submit">submit</button>
+        <br>
 
-    <ul class="list">
-    </ul>
+        <ul class="list">
+        </ul>
+        
+    </div>
+
+    <div class="inline">
+
+        <fieldset>
+            <div class="circle red" name="red-light"></div>
+            <div class="circle yellow" name="yellow-light"></div>
+            <div class="circle green" name="green-light"></div>
+        </fieldset>
+
+    </div>
+
+    <!-- Control traffic light -->
+    <script>
+        let redLight = document.querySelector("div[name=red-light]");
+        let yellowLight = document.querySelector("div[name=yellow-light]");
+        let greenLight = document.querySelector("div[name=green-light]");
+        
+        let turnOn = "brightness(100%)";
+        let turnOff = "brightness(50%)";
+
+        redLight.style.filter = turnOn;
+
+
+        function startLight() {
+
+            setTimeout(() => {
+                redLight.style.filter = turnOff;
+                yellowLight.style.filter = turnOn;
+
+                setTimeout(() => {
+                    yellowLight.style.filter = turnOff;
+                    greenLight.style.filter = turnOn;
+
+                        setTimeout(() => {
+                            greenLight.style.filter = turnOff;
+                            redLight.style.filter = turnOn;
+
+                        }, 8000);
+
+                }, 2000);
+
+            }, 5000);
+
+        }
+
+        startLight();
+        setInterval(() => {
+
+            startLight();
+
+        }, 15000);
+
+
+
+    </script>
 
 
     <script>
@@ -150,6 +234,8 @@
                 element_list.appendChild(li);
             }
         });
+
+
     </script>
 
 </body>
